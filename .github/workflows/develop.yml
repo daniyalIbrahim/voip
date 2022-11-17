@@ -1,0 +1,30 @@
+
+name: Image to DockerHub
+on: workflow_dispatch
+
+permissions:
+  contents: 'read'
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/registrar
+  TAG: 'v1.0.0'
+
+jobs:
+  Build:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Check out main repository
+        uses: actions/checkout@v3
+
+      - name: Build Image
+        run: |
+          docker build . --file ./registrar/Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.TAG }}
+
+      - name: DockerHub login
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+
+      - name: Push Image to DockerHub
+        run: |
+          docker push ${{ env.IMAGE_NAME }}
