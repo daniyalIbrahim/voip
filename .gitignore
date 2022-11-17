@@ -1,5 +1,6 @@
 
-
-registrar/vendor/
-vendor/
+/vendor
+/registrar/vendor/*
+registrar/vendor/*
+vendor/*
 .idea/

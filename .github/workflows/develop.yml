@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ env.TAG }} -f ./registrar/Dockerfile . 
+          docker build -t ${{ env.IMAGE_NAME }}:${{ env.TAG }} -f ./registrar/Dockerfile ./registrar
 
       - name: DockerHub login
         run: |
