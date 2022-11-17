@@ -1,6 +1,15 @@
 FROM ubuntu:latest
 
 ENV PATH /registrar
+
+RUN apt update -y
+
+RUN echo "Installing golang:1.19.3" && \
+    wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz &&\
+    tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz &&\
+    export PATH=$PATH:/usr/local/go/bin &&\
+    go version
+
 WORKDIR $PATH
 
 # Download necessary Go modules
